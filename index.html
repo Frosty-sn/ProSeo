@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Seodaemun · Gate of Memories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:  #090909;
+  --white:  #F2EDE8;
+  --red:    #8B2016;
+  --red-hi: #BFA882;
+  --silver: #888078;
+  --panel:  rgba(9,9,9,0.97);
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh; height: 100dvh;
+  overflow: hidden;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* ─── ROTATE PROMPT (portrait only) ─── */
+#rotate-msg {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--black);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.2rem; text-align: center;
+}
+#rotate-msg svg { opacity: 0.4; width: 52px; height: 52px; }
+#rotate-msg p { font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.28em; color: var(--silver); }
+@media (orientation: portrait) { #rotate-msg { display: flex; } }
+
+/* ─── PAGES ─── */
+.page {
+  position: fixed; inset: 0;
+  background: var(--black);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.45s ease;
+  overflow: hidden;
+}
+.page.active { opacity: 1; pointer-events: all; }
+
+.page-vid {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.6; z-index: 0;
+}
+
+/* ─── BACK BUTTON ─── */
+#back-btn {
+  position: fixed;
+  top: clamp(10px, 2.5vh, 18px); right: clamp(14px, 2vw, 22px);
+  z-index: 800;
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(11px, 1.2vw, 14px); letter-spacing: 0.22em;
+  color: var(--white); background: rgba(9,9,9,0.62);
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 0.34rem 0.8rem 0.28rem;
+  cursor: pointer; touch-action: manipulation;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.28s, background 0.18s;
+  opacity: 0; pointer-events: none;
+}
+#back-btn.on { opacity: 1; pointer-events: all; }
+#back-btn:active { background: rgba(139,32,22,0.7); }
+
+/* ════════════════════════════════════
+   SPLASH
+════════════════════════════════════ */
+#splash {
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+  background: #000 url('splash1.bmp') center center / cover no-repeat;
+}
+#splash::-webkit-scrollbar { display: none; }
+
+.splash-screen {
+  height: 75vh; height: 75dvh;
+  display: flex; flex-direction: column;
+  position: relative;
+  cursor: pointer; touch-action: manipulation;
+}
+.splash-screen::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.52) 100%);
+  z-index: 1;
+}
+.splash-screen > * { position: relative; z-index: 2; }
+
+.splash-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: clamp(1.2rem, 5vw, 3.5rem); }
+.sp-yr { font-size: clamp(9px, 1vw, 11px); letter-spacing: 0.5em; color: var(--red-hi); opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
+.sp-label { font-family: 'Bebas Neue', cursive; font-size: clamp(1.1rem, 2.5vw, 2rem); letter-spacing: 0.22em; color: rgba(242,237,232,0.38); margin-top: 0.45rem; opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards; }
+.sp-title { font-family: 'Bebas Neue', cursive; font-size: clamp(3.4rem, 8.5vw, 7rem); letter-spacing: 0.03em; line-height: 0.88; color: var(--white); margin-top: 0.2rem; opacity: 0; animation: fadeUp 0.9s 0.7s ease forwards; }
+.sp-kr { font-family: 'Noto Serif KR', serif; font-size: clamp(0.72rem, 1.4vw, 1rem); color: rgba(242,237,232,0.38); letter-spacing: 0.08em; margin-top: 0.55rem; opacity: 0; animation: fadeUp 0.7s 1.05s ease forwards; }
+.sp-cta { margin-top: clamp(1.5rem, 3.5vh, 2.5rem); display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Bebas Neue', cursive; font-size: clamp(11px, 1.3vw, 14px); letter-spacing: 0.35em; color: rgba(242,237,232,0.45); opacity: 0; animation: fadeUp 0.6s 1.4s ease forwards, blink 2.6s 2s ease-in-out infinite; }
+.sp-cta-line { display: inline-block; width: clamp(20px, 3vw, 36px); height: 1px; background: rgba(196,48,32,0.6); }
+.splash-footer { padding: clamp(0.5rem, 1.5vh, 0.9rem) clamp(1.2rem, 4vw, 3rem); border-top: 1px solid rgba(255,255,255,0.09); display: flex; justify-content: space-between; font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.22em; color: rgba(136,128,120,0.45); position: relative; z-index: 2; }
+
+/* ════════════════════════════════════
+   EXPLORE
+════════════════════════════════════ */
+#explore {
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+#explore::-webkit-scrollbar { display: none; }
+
+.explore-screen { height: 75vh; height: 75dvh; display: flex; flex-direction: column; }
+.exp-hdr { padding: clamp(0.6rem, 1.8vh, 1rem) clamp(1.2rem, 3.5vw, 2.5rem); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: baseline; gap: 1rem; flex-shrink: 0; }
+.exp-hdr-t { font-family: 'Bebas Neue', cursive; font-size: clamp(1rem, 2.2vw, 1.5rem); letter-spacing: 0.14em; color: var(--white); }
+.exp-hdr-k { font-family: 'Noto Serif KR', serif; font-size: clamp(9px, 1vw, 11px); color: var(--silver); }
+
+.exp-cards { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; min-height: 0; }
+.ecard { position: relative; cursor: pointer; touch-action: manipulation; overflow: hidden; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; justify-content: flex-end; }
+.ecard:last-child { border-right: none; }
+.ecard-bg { position: absolute; inset: 0; background-color: #0a0606; background-size: cover; background-position: center; }
+.ecard-bg::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(180deg, transparent 0, transparent 18px, rgba(139,32,22,0.055) 18px, rgba(139,32,22,0.055) 20px), repeating-linear-gradient(90deg, transparent 0, transparent 38px, rgba(139,32,22,0.04) 38px, rgba(139,32,22,0.04) 40px); }
+.ecard-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(9,9,9,0.96) 0%, rgba(9,9,9,0.45) 45%, rgba(9,9,9,0.1) 100%); transition: background 0.3s; }
+.ecard:active .ecard-grad { background: linear-gradient(to top, rgba(100,16,8,0.88) 0%, rgba(9,9,9,0.2) 65%, transparent 100%); }
+.ecard-body { position: relative; z-index: 2; padding: clamp(0.8rem, 2.5vh, 1.5rem) clamp(1rem, 2.5vw, 1.8rem); }
+.ecard-num  { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.3rem; }
+.ecard-name { font-family: 'Bebas Neue', cursive; font-size: clamp(1.4rem, 3.5vw, 2.8rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); }
+.ecard-kr   { font-family: 'Noto Serif KR', serif; font-size: clamp(9px, 1vw, 11px); color: var(--silver); margin-top: 0.3rem; }
+.ecard-cta  { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.3em; color: rgba(242,237,232,0.3); margin-top: 0.7rem; }
+.exp-footer { padding: clamp(0.4rem, 1.2vh, 0.7rem) clamp(1.2rem, 3.5vw, 2.5rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.22em; color: rgba(136,128,120,0.4); flex-shrink: 0; }
+
+/* ─── EMPTY SCROLL PANEL (splash & explore) ─── */
+.cp-empty-panel {
+  position: relative;
+  min-height: 50vh; min-height: 50dvh;
+  background: rgba(9,9,9,0.97);
+}
+.cp-empty-panel::before {
+  content: '';
+  position: absolute; bottom: 100%; left: 0; right: 0;
+  height: clamp(44px, 9vh, 72px);
+  background: linear-gradient(to bottom, transparent, rgba(9,9,9,0.97));
+  pointer-events: none;
+}
+.cp-empty-panel::after {
+  content: '';
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 2px;
+  background: rgba(255,255,255,0.18); border-radius: 1px; pointer-events: none;
+}
+
+/* ════════════════════════════════════
+   CONTENT PAGES (history & performance)
+════════════════════════════════════ */
+.cp-scroll {
+  position: absolute; inset: 0;
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch; z-index: 5;
+}
+.cp-scroll::-webkit-scrollbar { display: none; }
+
+.cp-spacer { height: 75vh; height: 75dvh; pointer-events: none; flex-shrink: 0; }
+
+.content-panel {
+  position: relative;
+  min-height: 50vh; min-height: 50dvh;
+  background: linear-gradient(to bottom, rgba(9,9,9,0.62) 0%, rgba(9,9,9,0.82) 30%, rgba(9,9,9,0.93) 60%, rgba(9,9,9,0.95) 100%);
+  display: flex; flex-direction: column;
+}
+.content-panel::before {
+  content: '';
+  position: absolute; bottom: 100%; left: 0; right: 0;
+  height: clamp(44px, 9vh, 72px);
+  background: linear-gradient(to bottom, transparent, rgba(9,9,9,0.62));
+  pointer-events: none;
+}
+.content-panel::after {
+  content: '';
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 2px;
+  background: rgba(255,255,255,0.18); border-radius: 1px; pointer-events: none;
+}
+
+.cp-inner { padding: clamp(1.2rem, 3vh, 1.8rem) clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.5rem, 1.2vh, 0.9rem); flex-shrink: 0; }
+.cp-eye { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.4rem; }
+.cp-title-row { display: flex; align-items: flex-start; gap: clamp(1rem, 2.5vw, 2.2rem); }
+.cp-h1 { font-family: 'Bebas Neue', cursive; font-size: clamp(1.7rem, 4vw, 3rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); flex-shrink: 0; }
+.cp-body { font-size: clamp(11px, 1.15vw, 13px); line-height: 1.74; color: rgba(242,237,232,0.52); padding-top: 0.2rem; flex: 1; }
+
+.cp-text-sections { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 2vw, 1.8rem); padding: 0 clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.4rem, 1vh, 0.8rem); margin-top: clamp(0.8rem, 2vh, 1.4rem); flex-shrink: 0; }
+.cp-section-head { font-family: 'Bebas Neue', cursive; font-size: clamp(9px, 1vw, 12px); letter-spacing: 0.25em; color: var(--red-hi); margin-bottom: 0.35rem; }
+.cp-section-body { font-size: clamp(10px, 1.05vw, 12px); line-height: 1.72; color: rgba(242,237,232,0.45); }
+
+.gallery-wrap { position: relative; flex-shrink: 0; }
+.gallery-strip { display: flex; gap: clamp(5px, 0.8vw, 9px); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding: clamp(0.6rem, 1.5vh, 1rem) clamp(1.2rem, 3.5vw, 2.2rem); }
+.gallery-strip::-webkit-scrollbar { display: none; }
+.g-thumb { height: clamp(48px, 9vh, 74px); aspect-ratio: 3/2; object-fit: cover; flex-shrink: 0; cursor: pointer; touch-action: manipulation; opacity: 0.68; transition: opacity 0.18s, transform 0.18s; border: 1px solid rgba(255,255,255,0.08); display: block; }
+.g-thumb:hover, .g-thumb:active { opacity: 1; transform: scale(1.06); }
+
+.g-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: clamp(22px, 2.8vw, 32px); height: clamp(40px, 8vh, 60px); background: rgba(9,9,9,0.72); border: 1px solid rgba(255,255,255,0.14); color: rgba(242,237,232,0.75); font-size: clamp(13px, 1.4vw, 18px); cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background 0.15s, color 0.15s; padding: 0; line-height: 1; }
+.g-nav:active { background: rgba(139,32,22,0.72); color: var(--white); }
+.g-prev { left: clamp(0.5rem, 1.2vw, 1rem); }
+.g-next { right: clamp(0.5rem, 1.2vw, 1rem); }
+
+.cp-gap { flex: 1; min-height: clamp(1rem, 3vh, 2.5rem); }
+.cp-footer { padding: clamp(0.35rem, 1vh, 0.6rem) clamp(1.2rem, 3.5vw, 2.2rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: flex-end; gap: 1.2rem; font-size: clamp(7px, 0.72vw, 9px); letter-spacing: 0.08em; color: rgba(136,128,120,0.4); line-height: 1.55; flex-shrink: 0; }
+.cp-footer-main { flex: 1; }
+.cp-footer-copy { flex-shrink: 0; white-space: nowrap; }
+
+/* ════════════════════════════════════
+   HISTORY PAGE (#story)
+════════════════════════════════════ */
+#story { background: #050505; }
+
+/* ─── PHOTO POPUP ─── */
+#popup {
+  display: none;
+  position: fixed; inset: 0; z-index: 9500;
+  background: rgba(0,0,0,0.88);
+  align-items: center; justify-content: center;
+  gap: clamp(0.5rem, 1.5vw, 1.2rem);
+  padding: clamp(0.8rem, 2.5vw, 2rem);
+  user-select: none; -webkit-user-select: none;
+}
+#popup.open { display: flex; }
+.popup-card { position: relative; max-width: min(72vw, 620px); width: 100%; background: #111; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: row; overflow: hidden; flex-shrink: 0; }
+.popup-img { width: clamp(180px, 45%, 320px); flex-shrink: 0; object-fit: cover; display: block; pointer-events: none; }
+.popup-body { padding: clamp(0.8rem, 2vw, 1.4rem); display: flex; flex-direction: column; justify-content: center; }
+.popup-label { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 10px); letter-spacing: 0.38em; color: var(--red-hi); margin-bottom: 0.4rem; }
+.popup-caption { font-size: clamp(11px, 1.1vw, 13px); line-height: 1.72; color: rgba(242,237,232,0.58); }
+.popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
+.popup-close:hover { color: var(--white); }
+
+/* prev / next arrows flanking the card */
+.popup-arrow {
+  flex-shrink: 0;
+  width: clamp(28px, 3.5vw, 44px); height: clamp(48px, 10vh, 72px);
+  background: rgba(9,9,9,0.62); border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(242,237,232,0.75); font-size: clamp(18px, 2.5vw, 28px);
+  cursor: pointer; touch-action: manipulation;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: background 0.15s, opacity 0.2s; padding: 0; line-height: 1;
+}
+.popup-arrow:active { background: rgba(139,32,22,0.72); }
+.popup-arrow.dim { opacity: 0.18; pointer-events: none; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes blink  { 0%, 100% { opacity: 0.22; } 50% { opacity: 0.65; } }
+</style>
+</head>
+<body>
+
+<!-- PORTRAIT ROTATE OVERLAY -->
+<div id="rotate-msg">
+  <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="14" y="6" width="24" height="40" rx="3" stroke="rgba(242,237,232,0.5)"/>
+    <path d="M6 20 C2 26 2 32 6 38" stroke="rgba(196,48,32,0.7)" stroke-linecap="round"/>
+    <path d="M3 38 L6 38 L6 41" stroke="rgba(196,48,32,0.7)" stroke-linecap="round"/>
+  </svg>
+  <p>ROTATE TO LANDSCAPE</p>
+</div>
+
+<!-- BACK BUTTON -->
+<button id="back-btn" onclick="goBack()">← BACK</button>
+
+<!-- PHOTO POPUP -->
+<div id="popup" onclick="closePopup(event)">
+  <button id="popup-prev" class="popup-arrow" onclick="event.stopPropagation();popupNav(-1)">&#8249;</button>
+  <div class="popup-card" onclick="event.stopPropagation()">
+    <img id="popup-img" class="popup-img" src="" alt="">
+    <div class="popup-body">
+      <div class="popup-label">SITE RECORD</div>
+      <p id="popup-caption" class="popup-caption"></p>
+    </div>
+    <button class="popup-close" onclick="closePopup()">✕</button>
+  </div>
+  <button id="popup-next" class="popup-arrow" onclick="event.stopPropagation();popupNav(1)">&#8250;</button>
+</div>
+
+<!-- ════════ SPLASH ════════ -->
+<div class="page active" id="splash">
+  <div class="splash-screen" onclick="goTo('explore')">
+    <div class="splash-main">
+      <div class="sp-yr">1908 · 서울 · SEOUL</div>
+      <div class="sp-label">Seodaemun</div>
+      <div class="sp-title">Gate of<br>Memories</div>
+      <div class="sp-kr">기억의 문</div>
+      <div class="sp-cta">
+        <span class="sp-cta-line"></span>
+        EXPLORE
+      </div>
+    </div>
+    <div class="splash-footer">
+      <span>서대문형무소역사관</span>
+      <span>Seodaemun Prison History Hall</span>
+    </div>
+  </div>
+  <div class="cp-empty-panel"></div>
+</div>
+
+<!-- ════════ EXPLORE ════════ -->
+<div class="page" id="explore">
+  <div class="explore-screen">
+    <div class="exp-hdr">
+      <div class="exp-hdr-t">Site-map</div>
+      <div class="exp-hdr-k">탐방할 공간을 선택하세요</div>
+    </div>
+    <div class="exp-cards">
+
+      <div class="ecard" onclick="goTo('intro')">
+        <div class="ecard-bg" style="background-image:url('pics/20260613_162017.jpg')"></div>
+        <div class="ecard-grad"></div>
+        <div class="ecard-body">
+          <div class="ecard-num">01</div>
+          <div class="ecard-name">Gate of<br>Memories</div>
+          <div class="ecard-kr">역사의 장소</div>
+          <div class="ecard-cta">ENTER →</div>
+        </div>
+      </div>
+
+      <div class="ecard" onclick="goTo('performance')">
+        <div class="ecard-bg" style="background-image:url('pics/20260613_172652.jpg'); background-color:#06060f"></div>
+        <div class="ecard-grad"></div>
+        <div class="ecard-body">
+          <div class="ecard-num">02</div>
+          <div class="ecard-name">Back to<br>the Past</div>
+          <div class="ecard-kr">공연·기억</div>
+          <div class="ecard-cta">ENTER →</div>
+        </div>
+      </div>
+
+      <div class="ecard" onclick="goTo('history')">
+        <div class="ecard-bg" style="background-image:url('pics/20260613_172716.jpg')"></div>
+        <div class="ecard-grad"></div>
+        <div class="ecard-body">
+          <div class="ecard-num">03</div>
+          <div class="ecard-name">History</div>
+          <div class="ecard-kr">역사</div>
+          <div class="ecard-cta">ENTER →</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="exp-footer">
+      <span>서대문형무소역사관</span>
+      <span>TAP A SECTION TO ENTER</span>
+    </div>
+  </div>
+  <div class="cp-empty-panel"></div>
+</div>
+
+<!-- ════════ HISTORY ════════ -->
+<div class="page" id="intro">
+  <video class="page-vid" autoplay muted loop playsinline>
+    <source src="videos/prison%20.mp4" type="video/mp4">
+  </video>
+  <div class="cp-scroll">
+    <div class="cp-spacer"></div>
+    <div class="content-panel">
+      <div class="cp-inner">
+        <div class="cp-eye">Gate of Memories · 역사의 장소</div>
+        <div class="cp-title-row">
+          <div class="cp-h1">Seodaemun<br>Prison</div>
+          <p class="cp-body">Seodaemun Prison History Hall is a memorial museum and historic site in Seoul, South Korea, located within Seodaemun Independence Park. It preserves the prison complex built by Japan in 1908, which became a symbol of Korea’s struggle for independence and democracy. The site documents both colonial oppression and postwar political history through its preserved buildings and exhibitions.</p>
+        </div>
+      </div>
+      <div class="gallery-wrap">
+        <button class="g-nav g-prev" onclick="scrollGal(this,-1)">&#8249;</button>
+        <div class="gallery-strip">
+          <img class="g-thumb" src="pics/20260613_160623.jpg" alt="" data-idx="0">
+          <img class="g-thumb" src="pics/20260613_162017.jpg" alt="" data-idx="1">
+          <img class="g-thumb" src="pics/20260613_162022.jpg" alt="" data-idx="2">
+        </div>
+        <button class="g-nav g-next" onclick="scrollGal(this,1)">&#8250;</button>
+      </div>
+      <div class="cp-gap"></div>
+      <div class="cp-footer">
+        <span class="cp-footer-main">This website is made as part of content plan creation competition held by Funday Korea Networks and Seodaemun Prison</span>
+        <span class="cp-footer-copy">© Content Team 3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PERFORMANCE ════════ -->
+<div class="page" id="performance">
+  <video class="page-vid" autoplay muted loop playsinline>
+    <!-- <source src="videos/acting%20.mp4" type="video/mp4"> -->
+    <source src="https://www.youtube.com/watch?v=X-zB_6rHt2M&pp=ygUPcmFpbnkgd2FsbHBhcGVy" type="video/mp4">
+  </video>
+  <div class="cp-scroll">
+    <div class="cp-spacer"></div>
+    <div class="content-panel">
+      <div class="cp-inner">
+        <div class="cp-eye">Back to the Past · 공연·기억</div>
+        <div class="cp-title-row">
+          <div class="cp-h1">Performance</div>
+          <p class="cp-body">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+      <div class="gallery-wrap">
+        <button class="g-nav g-prev" onclick="scrollGal(this,-1)">&#8249;</button>
+        <div class="gallery-strip">
+          <img class="g-thumb" src="pics/20260613_172652.jpg" alt="" data-idx="5">
+          <img class="g-thumb" src="pics/20260613_173028.jpg" alt="" data-idx="3">
+          <img class="g-thumb" src="pics/20260613_173311.jpg" alt="" data-idx="4">
+        </div>
+        <button class="g-nav g-next" onclick="scrollGal(this,1)">&#8250;</button>
+      </div>
+      <div class="cp-gap"></div>
+      <div class="cp-footer">
+        <span class="cp-footer-main">This website is made as part of content plan creation competition held by Funday Korea Networks and Seodaemun Prison</span>
+        <span class="cp-footer-copy">© Content Team 3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ STORY (History) ════════ -->
+<div class="page" id="history">
+  <video class="page-vid" autoplay muted loop playsinline>
+    <source src="map/20260613_155623.mp4" type="video/mp4">
+  </video>
+  <div class="cp-scroll">
+    <div class="cp-spacer"></div>
+    <div class="content-panel">
+      <div class="cp-inner">
+        <div class="cp-eye">History · 역사</div>
+        <div class="cp-title-row">
+          <div class="cp-h1">History</div>
+          <p class="cp-body">Initially named Gyeongseong Prison, the facility was established by Japan’s colonial government to detain political dissidents. It later imprisoned thousands of Korean independence activists, including the teenage martyr Yu Gwan-sun, who died there after leading the 1919 March 1 Movement. After liberation in 1945, successive South Korean regimes used it for political prisoners until its closure in 1987.</p>
+        </div>
+      </div>
+      <div class="cp-text-sections">
+        <div class="cp-section">
+          <div class="cp-section-head">Museum and exhibits</div>
+          <p class="cp-section-body">Opened to the public in 1998, the restored complex includes seven cell blocks, an execution building, interrogation rooms, watchtowers, and a memorial yard. Exhibits such as the "National Resistance Room" and "In-Prison Life Room" portray the hardships endured by detainees and their fight for national independence. Multimedia displays and guided tours are available in multiple languages.</p>
+        </div>
+        <div class="cp-section">
+          <div class="cp-section-head">Significance and remembrance</div>
+          <p class="cp-section-body">Designated a protected cultural property, Seodaemun Prison History Hall functions as a place of education and reflection on human rights, freedom, and Korea's modern history. Memorials within the park honor those who perished, reminding visitors of the resilience that shaped the Republic of Korea. The adjacent Seodaemun Independence Park also features the Independence Gate, Independence Hall, and monuments commemorating the March 1 Movement.</p>
+        </div>
+      </div>
+      <div class="cp-gap"></div>
+      <div class="cp-footer">
+        <span class="cp-footer-main">This website is made as part of content plan creation competition held by Funday Korea Networks and Seodaemun Prison</span>
+        <span class="cp-footer-copy">© Content Team 3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── photo data ─────────────────────────────────────────
+var photos = [
+  { src: 'pics/20260613_160623.jpg', caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vehicula tortor at ante laoreet faucibus.' },
+  { src: 'pics/20260613_162017.jpg', caption: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam eaque ipsa quae.' },
+  { src: 'pics/20260613_162022.jpg', caption: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed consequuntur magni.' },
+  { src: 'pics/20260613_173028.jpg', caption: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.' },
+  { src: 'pics/20260613_173311.jpg', caption: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime.' },
+  { src: 'pics/20260613_172652.jpg', caption: 'Ut labore et dolore magnam aliquam quaerat voluptatem. Neque porro quisquam est qui dolorem ipsum.' },
+  { src: 'map/20260613_155612.jpg', caption: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.' },
+  { src: 'map/20260613_155636.jpg', caption: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.' },
+  { src: 'map/20260613_155642.jpg', caption: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed magni dolores eos.' },
+  { src: 'map/20260613_165456.jpg', caption: 'Nam libero tempore cum soluta nobis eligendi optio cumque nihil impedit id quod maxime placeat.' },
+  { src: 'map/20260613_172412.jpg', caption: 'Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus saepe eveniet ut voluptates.' }
+];
+
+// ─── gallery strip scroll ────────────────────────────────
+function scrollGal(btn, dir) {
+  var strip = btn.closest('.gallery-wrap').querySelector('.gallery-strip');
+  var thumb = strip.querySelector('.g-thumb');
+  strip.scrollBy({ left: dir * ((thumb ? thumb.offsetWidth : 100) + 8), behavior: 'smooth' });
+}
+
+// ─── popup gallery navigation ───────────────────────────
+var popupGallery = [], popupIdx = 0;
+
+function openPhoto(thumbEl) {
+  var thumbs = Array.from(thumbEl.closest('.gallery-strip').querySelectorAll('.g-thumb'));
+  popupGallery = thumbs.map(function(t) { return photos[parseInt(t.dataset.idx)]; });
+  popupIdx = thumbs.indexOf(thumbEl);
+  renderPopup();
+  document.getElementById('popup').classList.add('open');
+}
+
+function renderPopup() {
+  var d = popupGallery[popupIdx];
+  document.getElementById('popup-img').src = d.src;
+  document.getElementById('popup-caption').textContent = d.caption;
+  document.getElementById('popup-prev').classList.toggle('dim', popupIdx <= 0);
+  document.getElementById('popup-next').classList.toggle('dim', popupIdx >= popupGallery.length - 1);
+}
+
+function popupNav(dir) {
+  var n = popupIdx + dir;
+  if (n >= 0 && n < popupGallery.length) { popupIdx = n; renderPopup(); }
+}
+
+// touch swipe inside popup
+var swipeX = 0;
+document.getElementById('popup').addEventListener('touchstart', function(e) { swipeX = e.touches[0].clientX; }, { passive: true });
+document.getElementById('popup').addEventListener('touchend', function(e) {
+  var dx = e.changedTouches[0].clientX - swipeX;
+  if (Math.abs(dx) > 44) popupNav(dx < 0 ? 1 : -1);
+});
+
+document.querySelectorAll('.g-thumb').forEach(function(img) {
+  img.addEventListener('click', function() { openPhoto(this); });
+});
+
+function closePopup(e) {
+  if (!e || e.target === document.getElementById('popup')) {
+    document.getElementById('popup').classList.remove('open');
+  }
+}
+
+// ─── keyboard arrow → popup or gallery scroll ──────────
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  var dir = e.key === 'ArrowRight' ? 1 : -1;
+  if (document.getElementById('popup').classList.contains('open')) {
+    popupNav(dir);
+    return;
+  }
+  var strip = document.getElementById(cur).querySelector('.gallery-strip');
+  if (!strip) return;
+  var thumb = strip.querySelector('.g-thumb');
+  strip.scrollBy({ left: dir * ((thumb ? thumb.offsetWidth : 100) + 8), behavior: 'smooth' });
+});
+
+// ─── page navigation ────────────────────────────────────
+var cur = 'splash', hist = [];
+
+function setBack(id) {
+  var btn = document.getElementById('back-btn');
+  if (id === 'splash') { btn.classList.remove('on'); }
+  else { btn.textContent = id === 'explore' ? '← BACK' : '← EXPLORE'; btn.classList.add('on'); }
+}
+
+function goTo(id) {
+  if (id === cur) return;
+  document.getElementById(cur).classList.remove('active');
+  var toEl = document.getElementById(id);
+  toEl.scrollTop = 0;
+  var sc = toEl.querySelector('.cp-scroll');
+  if (sc) sc.scrollTop = 0;
+  toEl.classList.add('active');
+  hist.push(cur); cur = id; setBack(cur);
+}
+
+function goBack() {
+  var prev = hist.length ? hist.pop() : 'splash';
+  while (prev === cur && hist.length) prev = hist.pop();
+  if (prev === cur) prev = (cur === 'explore') ? 'splash' : 'explore';
+  document.getElementById(cur).classList.remove('active');
+  var toEl = document.getElementById(prev);
+  toEl.scrollTop = 0;
+  var sc = toEl.querySelector('.cp-scroll');
+  if (sc) sc.scrollTop = 0;
+  toEl.classList.add('active');
+  cur = prev; setBack(cur);
+}
+</script>
+</body>
+</html>
