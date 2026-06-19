@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -31,18 +31,6 @@ html, body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* ─── ROTATE PROMPT (portrait only) ─── */
-#rotate-msg {
-  display: none;
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--black);
-  flex-direction: column; align-items: center; justify-content: center;
-  gap: 1.2rem; text-align: center;
-}
-#rotate-msg svg { opacity: 0.4; width: 52px; height: 52px; }
-#rotate-msg p { font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 0.28em; color: var(--silver); }
-@media (orientation: portrait) { #rotate-msg { display: flex; } }
-
 /* ─── PAGES ─── */
 .page {
   position: fixed; inset: 0;
@@ -62,10 +50,10 @@ html, body {
 /* ─── BACK BUTTON ─── */
 #back-btn {
   position: fixed;
-  top: clamp(10px, 2.5vh, 18px); right: clamp(14px, 2vw, 22px);
+  top: clamp(10px, 2.5vh, 18px); right: 14px;
   z-index: 800;
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(11px, 1.2vw, 14px); letter-spacing: 0.22em;
+  font-size: 12px; letter-spacing: 0.22em;
   color: var(--white); background: rgba(9,9,9,0.62);
   border: 1px solid rgba(255,255,255,0.18);
   padding: 0.34rem 0.8rem 0.28rem;
@@ -93,14 +81,14 @@ html, body {
 }
 #splash > * { position: relative; z-index: 2; }
 
-.splash-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: clamp(1.2rem, 5vw, 3.5rem); }
-.sp-yr { font-size: clamp(9px, 1vw, 11px); letter-spacing: 0.5em; color: var(--red-hi); opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
-.sp-label { font-family: 'Bebas Neue', cursive; font-size: clamp(1.1rem, 2.5vw, 2rem); letter-spacing: 0.22em; color: rgba(242,237,232,0.38); margin-top: 0.45rem; opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards; }
-.sp-title { font-family: 'Bebas Neue', cursive; font-size: clamp(3.4rem, 8.5vw, 7rem); letter-spacing: 0.03em; line-height: 0.88; color: var(--white); margin-top: 0.2rem; opacity: 0; animation: fadeUp 0.9s 0.7s ease forwards; }
-.sp-kr { font-family: 'Noto Serif KR', serif; font-size: clamp(0.72rem, 1.4vw, 1rem); color: rgba(242,237,232,0.38); letter-spacing: 0.08em; margin-top: 0.55rem; opacity: 0; animation: fadeUp 0.7s 1.05s ease forwards; }
-.sp-cta { margin-top: clamp(1.5rem, 3.5vh, 2.5rem); display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Bebas Neue', cursive; font-size: clamp(11px, 1.3vw, 14px); letter-spacing: 0.35em; color: rgba(242,237,232,0.45); opacity: 0; animation: fadeUp 0.6s 1.4s ease forwards, blink 2.6s 2s ease-in-out infinite; }
-.sp-cta-line { display: inline-block; width: clamp(20px, 3vw, 36px); height: 1px; background: rgba(196,48,32,0.6); }
-.splash-footer { padding: clamp(0.5rem, 1.5vh, 0.9rem) clamp(1.2rem, 4vw, 3rem); border-top: 1px solid rgba(255,255,255,0.09); display: flex; justify-content: space-between; font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.22em; color: rgba(136,128,120,0.45); position: relative; z-index: 2; }
+.splash-main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: clamp(1.5rem, 6vw, 3rem); }
+.sp-yr { font-size: 10px; letter-spacing: 0.5em; color: var(--red-hi); opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
+.sp-label { font-family: 'Bebas Neue', cursive; font-size: clamp(1.1rem, 4vw, 1.6rem); letter-spacing: 0.22em; color: rgba(242,237,232,0.38); margin-top: 0.45rem; opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards; }
+.sp-title { font-family: 'Bebas Neue', cursive; font-size: clamp(3.8rem, 16vw, 6rem); letter-spacing: 0.03em; line-height: 0.88; color: var(--white); margin-top: 0.2rem; opacity: 0; animation: fadeUp 0.9s 0.7s ease forwards; }
+.sp-kr { font-family: 'Noto Serif KR', serif; font-size: clamp(0.75rem, 2.5vw, 1rem); color: rgba(242,237,232,0.38); letter-spacing: 0.08em; margin-top: 0.55rem; opacity: 0; animation: fadeUp 0.7s 1.05s ease forwards; }
+.sp-cta { margin-top: clamp(1.5rem, 4vh, 2.5rem); display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Bebas Neue', cursive; font-size: 12px; letter-spacing: 0.35em; color: rgba(242,237,232,0.45); opacity: 0; animation: fadeUp 0.6s 1.4s ease forwards, blink 2.6s 2s ease-in-out infinite; }
+.sp-cta-line { display: inline-block; width: clamp(20px, 5vw, 36px); height: 1px; background: rgba(196,48,32,0.6); }
+.splash-footer { padding: clamp(0.5rem, 1.5vh, 0.9rem) clamp(1.5rem, 5vw, 2.5rem); border-top: 1px solid rgba(255,255,255,0.09); display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 0.22em; color: rgba(136,128,120,0.45); position: relative; z-index: 2; }
 
 .splash-bg-vid {
   position: absolute; inset: 0;
@@ -110,16 +98,16 @@ html, body {
 }
 .sp-btns {
   margin-top: clamp(1.5rem, 3.5vh, 2.5rem);
-  display: flex; align-items: center; gap: 1rem;
+  display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap;
   pointer-events: all;
 }
 .sp-watch {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(10px, 1.1vw, 13px); letter-spacing: 0.25em;
+  font-size: 11px; letter-spacing: 0.25em;
   color: rgba(242,237,232,0.52);
   background: rgba(9,9,9,0.45);
   border: 1px solid rgba(255,255,255,0.15);
-  padding: 0.32rem 0.8rem 0.26rem;
+  padding: 0.35rem 0.9rem 0.28rem;
   cursor: pointer; touch-action: manipulation;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   transition: background 0.18s, color 0.18s;
@@ -131,12 +119,12 @@ html, body {
 }
 #splash .content-panel::before { display: none; }
 .splash-goto {
-  padding: clamp(0.5rem, 1.5vh, 1rem) clamp(1.2rem, 3.5vw, 2.2rem);
+  padding: clamp(0.5rem, 1.5vh, 0.8rem) clamp(1.2rem, 4vw, 1.8rem);
   display: flex; justify-content: flex-end;
 }
 .splash-goto button {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(10px, 1.1vw, 13px); letter-spacing: 0.28em;
+  font-size: 12px; letter-spacing: 0.28em;
   color: rgba(242,237,232,0.42);
   background: none; border: none;
   border-bottom: 1px solid rgba(255,255,255,0.12);
@@ -144,31 +132,30 @@ html, body {
   cursor: pointer; touch-action: manipulation;
   transition: color 0.18s;
 }
-.splash-goto button:hover { color: rgba(242,237,232,0.72); }
 .splash-goto button:active { color: var(--red-hi); }
 
 /* ════════════════════════════════════
-   EXPLORE
+   EXPLORE  (portrait: 3 stacked cards)
 ════════════════════════════════════ */
 #explore { display: grid; grid-template-rows: auto 1fr auto; }
-.exp-hdr { padding: clamp(0.6rem, 1.8vh, 1rem) clamp(1.2rem, 3.5vw, 2.5rem); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: baseline; gap: 1rem; flex-shrink: 0; z-index: 2; }
-.exp-hdr-t { font-family: 'Bebas Neue', cursive; font-size: clamp(1rem, 2.2vw, 1.5rem); letter-spacing: 0.14em; color: var(--white); }
-.exp-hdr-k { font-family: 'Noto Serif KR', serif; font-size: clamp(9px, 1vw, 11px); color: var(--silver); }
+.exp-hdr { padding: clamp(0.6rem, 1.8vh, 1rem) clamp(1.2rem, 4vw, 2rem); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: baseline; gap: 1rem; flex-shrink: 0; }
+.exp-hdr-t { font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.14em; color: var(--white); }
+.exp-hdr-k { font-family: 'Noto Serif KR', serif; font-size: 10px; color: var(--silver); }
 
-.exp-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr; min-height: 0; }
-.ecard { position: relative; cursor: pointer; touch-action: manipulation; overflow: hidden; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; justify-content: flex-end; background-color: #0a0606; background-size: cover; background-position: center; }
-.ecard:last-child { border-right: none; }
+.exp-cards { display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr 1fr 1fr; min-height: 0; }
+.ecard { position: relative; cursor: pointer; touch-action: manipulation; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; justify-content: flex-end; background-color: #0a0606; background-size: cover; background-position: center; }
+.ecard:last-child { border-bottom: none; }
 .ecard::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: repeating-linear-gradient(180deg, transparent 0, transparent 18px, rgba(139,32,22,0.055) 18px, rgba(139,32,22,0.055) 20px), repeating-linear-gradient(90deg, transparent 0, transparent 38px, rgba(139,32,22,0.04) 38px, rgba(139,32,22,0.04) 40px); }
 .ecard-grad { position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(9,9,9,0.96) 0%, rgba(9,9,9,0.45) 45%, rgba(9,9,9,0.1) 100%); transition: background 0.3s; }
 .ecard:active .ecard-grad { background: linear-gradient(to top, rgba(100,16,8,0.88) 0%, rgba(9,9,9,0.2) 65%, transparent 100%); }
-.ecard-body { position: relative; z-index: 3; padding: clamp(0.8rem, 2.5vh, 1.5rem) clamp(1rem, 2.5vw, 1.8rem); }
-.ecard-num  { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.3rem; }
-.ecard-name { font-family: 'Bebas Neue', cursive; font-size: clamp(1.4rem, 3.5vw, 2.8rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); }
-.ecard-kr   { font-family: 'Noto Serif KR', serif; font-size: clamp(9px, 1vw, 11px); color: var(--silver); margin-top: 0.3rem; }
-.ecard-cta  { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.3em; color: rgba(242,237,232,0.3); margin-top: 0.7rem; }
-.exp-footer { padding: clamp(0.4rem, 1.2vh, 0.7rem) clamp(1.2rem, 3.5vw, 2.5rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.22em; color: rgba(136,128,120,0.4); flex-shrink: 0; }
+.ecard-body { position: relative; z-index: 3; padding: clamp(0.8rem, 2.5vh, 1.4rem) clamp(1.2rem, 4vw, 2rem); }
+.ecard-num  { font-family: 'Bebas Neue', cursive; font-size: 10px; letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.3rem; }
+.ecard-name { font-family: 'Bebas Neue', cursive; font-size: clamp(1.6rem, 6vh, 2.4rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); }
+.ecard-kr   { font-family: 'Noto Serif KR', serif; font-size: 10px; color: var(--silver); margin-top: 0.3rem; }
+.ecard-cta  { font-family: 'Bebas Neue', cursive; font-size: 10px; letter-spacing: 0.3em; color: rgba(242,237,232,0.3); margin-top: 0.7rem; }
+.exp-footer { padding: clamp(0.4rem, 1.2vh, 0.7rem) clamp(1.2rem, 4vw, 2rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; font-size: 9px; letter-spacing: 0.22em; color: rgba(136,128,120,0.4); flex-shrink: 0; }
 
-/* ─── EMPTY SCROLL PANEL (splash & explore) ─── */
+/* ─── EMPTY SCROLL PANEL (splash only) ─── */
 .cp-empty-panel {
   position: relative;
   min-height: 50vh; min-height: 50dvh;
@@ -198,11 +185,11 @@ html, body {
 }
 .cp-scroll::-webkit-scrollbar { display: none; }
 
-.cp-spacer { height: 75vh; height: 75dvh; pointer-events: none; flex-shrink: 0; }
+.cp-spacer { height: 55vh; height: 55dvh; pointer-events: none; flex-shrink: 0; }
 
 .content-panel {
   position: relative;
-  min-height: 50vh; min-height: 50dvh;
+  min-height: 60vh; min-height: 60dvh;
   background: linear-gradient(to bottom, rgba(9,9,9,0.62) 0%, rgba(9,9,9,0.82) 30%, rgba(9,9,9,0.93) 60%, rgba(9,9,9,0.95) 100%);
   display: flex; flex-direction: column;
 }
@@ -220,31 +207,31 @@ html, body {
   background: rgba(255,255,255,0.18); border-radius: 1px; pointer-events: none;
 }
 
-.cp-inner { padding: clamp(1.2rem, 3vh, 1.8rem) clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.5rem, 1.2vh, 0.9rem); flex-shrink: 0; }
-.cp-eye { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.4rem; }
-.cp-title-row { display: flex; align-items: flex-start; gap: clamp(1rem, 2.5vw, 2.2rem); }
-.cp-h1 { font-family: 'Bebas Neue', cursive; font-size: clamp(1.7rem, 4vw, 3rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); flex-shrink: 0; }
-.cp-body { font-size: clamp(11px, 1.15vw, 13px); line-height: 1.74; color: rgba(242,237,232,0.52); padding-top: 0.2rem; flex: 1; }
+.cp-inner { padding: clamp(1rem, 2.5vh, 1.6rem) clamp(1.2rem, 4vw, 1.8rem) clamp(0.5rem, 1.2vh, 0.9rem); flex-shrink: 0; }
+.cp-eye { font-family: 'Bebas Neue', cursive; font-size: 9px; letter-spacing: 0.4em; color: var(--red-hi); margin-bottom: 0.4rem; }
+.cp-title-row { display: flex; flex-direction: column; gap: 0.7rem; }
+.cp-h1 { font-family: 'Bebas Neue', cursive; font-size: clamp(2rem, 8vw, 3rem); letter-spacing: 0.04em; line-height: 0.94; color: var(--white); }
+.cp-body { font-size: 12px; line-height: 1.74; color: rgba(242,237,232,0.52); }
 
-.cp-text-sections { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 2vw, 1.8rem); padding: 0 clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.4rem, 1vh, 0.8rem); margin-top: clamp(0.8rem, 2vh, 1.4rem); flex-shrink: 0; }
-.cp-section-head { font-family: 'Bebas Neue', cursive; font-size: clamp(9px, 1vw, 12px); letter-spacing: 0.25em; color: var(--red-hi); margin-bottom: 0.35rem; }
-.cp-section-body { font-size: clamp(10px, 1.05vw, 12px); line-height: 1.72; color: rgba(242,237,232,0.45); }
+.cp-text-sections { display: grid; grid-template-columns: 1fr; gap: clamp(0.8rem, 2vh, 1.4rem); padding: 0 clamp(1.2rem, 4vw, 1.8rem) clamp(0.4rem, 1vh, 0.8rem); margin-top: clamp(0.8rem, 2vh, 1.2rem); flex-shrink: 0; }
+.cp-section-head { font-family: 'Bebas Neue', cursive; font-size: 11px; letter-spacing: 0.25em; color: var(--red-hi); margin-bottom: 0.35rem; }
+.cp-section-body { font-size: 11px; line-height: 1.72; color: rgba(242,237,232,0.45); }
 
 .gallery-wrap { position: relative; flex-shrink: 0; }
-.gallery-strip { display: flex; gap: clamp(5px, 0.8vw, 9px); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding: clamp(0.6rem, 1.5vh, 1rem) clamp(1.2rem, 3.5vw, 2.2rem); }
+.gallery-strip { display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding: clamp(0.6rem, 1.5vh, 1rem) clamp(1.2rem, 4vw, 1.8rem); }
 .gallery-strip::-webkit-scrollbar { display: none; }
-.g-thumb { height: clamp(48px, 9vh, 74px); aspect-ratio: 3/2; object-fit: cover; flex-shrink: 0; cursor: pointer; touch-action: manipulation; opacity: 0.68; transition: opacity 0.18s, transform 0.18s; border: 1px solid rgba(255,255,255,0.08); display: block; }
+.g-thumb { height: clamp(52px, 10vh, 80px); aspect-ratio: 3/2; object-fit: cover; flex-shrink: 0; cursor: pointer; touch-action: manipulation; opacity: 0.68; transition: opacity 0.18s, transform 0.18s; border: 1px solid rgba(255,255,255,0.08); display: block; }
 .g-thumb:hover, .g-thumb:active { opacity: 1; transform: scale(1.06); }
 
-.g-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: clamp(22px, 2.8vw, 32px); height: clamp(40px, 8vh, 60px); background: rgba(9,9,9,0.72); border: 1px solid rgba(255,255,255,0.14); color: rgba(242,237,232,0.75); font-size: clamp(13px, 1.4vw, 18px); cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background 0.15s, color 0.15s; padding: 0; line-height: 1; }
+.g-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 26px; height: clamp(40px, 8vh, 56px); background: rgba(9,9,9,0.72); border: 1px solid rgba(255,255,255,0.14); color: rgba(242,237,232,0.75); font-size: 16px; cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background 0.15s, color 0.15s; padding: 0; line-height: 1; }
 .g-nav:active { background: rgba(139,32,22,0.72); color: var(--white); }
-.g-prev { left: clamp(0.5rem, 1.2vw, 1rem); }
-.g-next { right: clamp(0.5rem, 1.2vw, 1rem); }
+.g-prev { left: 8px; }
+.g-next { right: 8px; }
 
-.cp-gap { flex: 1; min-height: clamp(1rem, 3vh, 2.5rem); }
-.cp-footer { padding: clamp(0.35rem, 1vh, 0.6rem) clamp(1.2rem, 3.5vw, 2.2rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: flex-end; gap: 1.2rem; font-size: clamp(7px, 0.72vw, 9px); letter-spacing: 0.08em; color: rgba(136,128,120,0.4); line-height: 1.55; flex-shrink: 0; }
+.cp-gap { flex: 1; min-height: clamp(0.8rem, 2vh, 1.8rem); }
+.cp-footer { padding: clamp(0.35rem, 1vh, 0.6rem) clamp(1.2rem, 4vw, 1.8rem); border-top: 1px solid rgba(255,255,255,0.07); display: flex; flex-direction: column; gap: 0.2rem; font-size: 8px; letter-spacing: 0.08em; color: rgba(136,128,120,0.4); line-height: 1.55; flex-shrink: 0; }
 .cp-footer-main { flex: 1; }
-.cp-footer-copy { flex-shrink: 0; white-space: nowrap; }
+.cp-footer-copy { flex-shrink: 0; }
 
 /* ════════════════════════════════════
    HISTORY PAGE (#story)
@@ -257,25 +244,31 @@ html, body {
   position: fixed; inset: 0; z-index: 9500;
   background: rgba(0,0,0,0.88);
   align-items: center; justify-content: center;
-  gap: clamp(0.5rem, 1.5vw, 1.2rem);
-  padding: clamp(0.8rem, 2.5vw, 2rem);
+  gap: 10px;
+  padding: clamp(0.8rem, 3vw, 1.4rem);
   user-select: none; -webkit-user-select: none;
 }
 #popup.open { display: flex; }
-.popup-card { position: relative; max-width: min(72vw, 620px); width: 100%; background: #111; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: row; overflow: hidden; flex-shrink: 0; }
-.popup-img { width: clamp(180px, 45%, 320px); flex-shrink: 0; object-fit: cover; display: block; pointer-events: none; }
-.popup-body { padding: clamp(0.8rem, 2vw, 1.4rem); display: flex; flex-direction: column; justify-content: center; }
-.popup-label { font-family: 'Bebas Neue', cursive; font-size: clamp(8px, 0.9vw, 10px); letter-spacing: 0.38em; color: var(--red-hi); margin-bottom: 0.4rem; }
-.popup-caption { font-size: clamp(11px, 1.1vw, 13px); line-height: 1.72; color: rgba(242,237,232,0.58); }
+.popup-card {
+  position: relative;
+  max-width: min(82vw, 340px); width: 100%;
+  background: #111; border: 1px solid rgba(255,255,255,0.1);
+  display: flex; flex-direction: column;
+  overflow: hidden; flex-shrink: 0;
+  max-height: 84dvh;
+}
+.popup-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; pointer-events: none; flex-shrink: 0; }
+.popup-body { padding: clamp(0.7rem, 2.5vw, 1.2rem); display: flex; flex-direction: column; justify-content: center; overflow-y: auto; }
+.popup-label { font-family: 'Bebas Neue', cursive; font-size: 9px; letter-spacing: 0.38em; color: var(--red-hi); margin-bottom: 0.4rem; }
+.popup-caption { font-size: 12px; line-height: 1.72; color: rgba(242,237,232,0.58); }
 .popup-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 4px 8px; }
 .popup-close:hover { color: var(--white); }
 
-/* prev / next arrows flanking the card */
 .popup-arrow {
   flex-shrink: 0;
-  width: clamp(28px, 3.5vw, 44px); height: clamp(48px, 10vh, 72px);
+  width: clamp(26px, 6vw, 36px); height: clamp(44px, 10vh, 64px);
   background: rgba(9,9,9,0.62); border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(242,237,232,0.75); font-size: clamp(18px, 2.5vw, 28px);
+  color: rgba(242,237,232,0.75); font-size: clamp(16px, 5vw, 24px);
   cursor: pointer; touch-action: manipulation;
   display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -286,7 +279,7 @@ html, body {
 
 /* ─── VIDEO WATCH BUTTON & MODAL ─── */
 .vid-spacer-wrap {
-  height: 75vh; height: 75dvh;
+  height: 55vh; height: 55dvh;
   display: flex; align-items: flex-end; justify-content: center;
   padding-bottom: 3.5vh;
   pointer-events: none;
@@ -295,7 +288,7 @@ html, body {
 .vid-watch-btn {
   pointer-events: all;
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(11px, 1.2vw, 14px); letter-spacing: 0.28em;
+  font-size: 12px; letter-spacing: 0.28em;
   color: var(--white);
   background: rgba(9,9,9,0.55);
   border: 1px solid rgba(255,255,255,0.22);
@@ -312,16 +305,16 @@ html, body {
   position: fixed; inset: 0; z-index: 9600;
   background: rgba(0,0,0,0.93);
   align-items: center; justify-content: center;
-  padding: clamp(1rem, 4vw, 2.5rem);
+  padding: 1rem;
 }
 #vid-modal.open { display: flex; }
 .vid-modal-inner {
   position: relative;
-  width: 100%; max-width: min(90vw, 880px);
-  display: flex; flex-direction: column; gap: 0.9rem;
+  width: 100%; max-width: 95vw;
+  display: flex; flex-direction: column; gap: 0.7rem;
 }
 .vid-modal-close {
-  position: absolute; top: -2.4rem; right: 0;
+  position: absolute; top: -2.2rem; right: 0;
   background: none; border: none;
   color: rgba(255,255,255,0.4); font-size: 1.4rem;
   cursor: pointer; padding: 4px 8px; line-height: 1;
@@ -330,21 +323,21 @@ html, body {
 #vid-modal-player { width: 100%; aspect-ratio: 16/9; background: #000; display: block; }
 .vid-modal-label {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.4em;
-  color: var(--red-hi); margin-bottom: 0.15rem;
+  font-size: 9px; letter-spacing: 0.4em;
+  color: var(--red-hi); margin-bottom: 0.1rem;
 }
 .vid-modal-title {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(1.1rem, 2.5vw, 1.8rem); letter-spacing: 0.04em;
+  font-size: clamp(1rem, 5vw, 1.5rem); letter-spacing: 0.04em;
   color: var(--white);
 }
 .vid-modal-desc {
-  font-size: clamp(11px, 1.1vw, 13px); line-height: 1.72;
+  font-size: clamp(11px, 3vw, 13px); line-height: 1.68;
   color: rgba(242,237,232,0.52);
 }
 
 /* ════════════════════════════════════
-   LOOK PAGE (Take a look at)
+   LOOK PAGE (Take a look at) — portrait
 ════════════════════════════════════ */
 .look-scroll {
   position: absolute; inset: 0;
@@ -354,72 +347,71 @@ html, body {
 }
 .look-scroll::-webkit-scrollbar { display: none; }
 .look-hdr {
-  padding: clamp(1.5rem, 4vh, 2.5rem) clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.8rem, 2vh, 1.4rem);
+  padding: clamp(1.2rem, 3vh, 2rem) clamp(1.2rem, 4vw, 1.8rem) clamp(0.7rem, 1.8vh, 1.2rem);
   border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .look-body {
-  padding: clamp(0.9rem, 2.5vh, 1.8rem) clamp(1.2rem, 3.5vw, 2.2rem);
+  padding: clamp(0.8rem, 2vh, 1.4rem) clamp(1.2rem, 4vw, 1.8rem);
   display: flex; flex-direction: column;
-  gap: clamp(0.9rem, 2.5vh, 1.8rem);
+  gap: clamp(0.8rem, 2vh, 1.4rem);
 }
 .look-vid-card {
-  display: flex; gap: 0;
+  display: flex; flex-direction: column; gap: 0;
   border: 1px solid rgba(255,255,255,0.07);
   background: #0a0a0a; overflow: hidden;
-  min-height: clamp(140px, 26vh, 210px);
 }
 .look-vid-wrap {
-  flex-shrink: 0; width: clamp(180px, 36vw, 360px);
-  position: relative; overflow: hidden;
+  width: 100%; aspect-ratio: 16/9;
+  position: relative; overflow: hidden; flex-shrink: 0;
 }
 .look-vid-preview {
   display: block; width: 100%; height: 100%;
   object-fit: cover; opacity: 0.78;
 }
 .look-watch-btn {
-  position: absolute; bottom: clamp(6px, 1.5vh, 10px); left: 50%;
+  position: absolute; bottom: 10px; left: 50%;
   transform: translateX(-50%);
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(9px, 0.85vw, 11px); letter-spacing: 0.22em;
+  font-size: 11px; letter-spacing: 0.22em;
   color: var(--white); background: rgba(9,9,9,0.72);
   border: 1px solid rgba(255,255,255,0.2);
-  padding: 0.32rem 0.9rem 0.26rem;
+  padding: 0.35rem 1rem 0.28rem;
   cursor: pointer; touch-action: manipulation;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   white-space: nowrap; transition: background 0.18s;
 }
 .look-watch-btn:active { background: rgba(139,32,22,0.7); }
 .look-vid-info {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(0.8rem, 2vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
-  gap: 0.42rem;
+  display: flex; flex-direction: column;
+  padding: clamp(0.7rem, 2vh, 1.2rem) clamp(1rem, 3vw, 1.4rem);
+  gap: 0.38rem;
 }
 .look-vid-label {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(8px, 0.82vw, 10px); letter-spacing: 0.38em;
+  font-size: 9px; letter-spacing: 0.38em;
   color: var(--red-hi);
 }
 .look-vid-desc {
-  font-size: clamp(10px, 1vw, 12px); line-height: 1.72;
+  font-size: 11px; line-height: 1.7;
   color: rgba(242,237,232,0.46);
 }
 .look-visitors {
-  padding: clamp(0.9rem, 2.5vh, 1.5rem) clamp(1.2rem, 2.5vw, 1.8rem);
+  padding: clamp(0.9rem, 2vh, 1.4rem) clamp(1.2rem, 4vw, 1.8rem);
   background: #070707; border: 1px solid rgba(255,255,255,0.07);
 }
 .look-vis-head {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(8px, 0.9vw, 11px); letter-spacing: 0.4em;
-  color: var(--red-hi); margin-bottom: 0.7rem;
+  font-size: 10px; letter-spacing: 0.4em;
+  color: var(--red-hi); margin-bottom: 0.65rem;
 }
 .look-vis-row {
   display: flex; align-items: baseline; gap: 0.5rem;
   margin-bottom: 0.42rem;
-  font-size: clamp(10px, 1.05vw, 13px);
+  font-size: 11px; line-height: 1.6;
   color: rgba(242,237,232,0.5);
 }
 .look-vis-icon { color: var(--red-hi); opacity: 0.55; }
-.look-vis-sep { opacity: 0.28; margin: 0 0.28rem; }
+.look-vis-sep { opacity: 0.28; margin: 0 0.25rem; }
 .look-vis-price strong {
   font-family: 'Bebas Neue', cursive;
   font-size: 1.05em; letter-spacing: 0.08em;
@@ -428,19 +420,18 @@ html, body {
 .look-footer { border-top: 1px solid rgba(255,255,255,0.07); }
 
 /* ════════════════════════════════════
-   SECTION NAV CARDS
+   SECTION NAV CARDS (portrait)
 ════════════════════════════════════ */
 .sec-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  min-height: clamp(160px, 26vh, 240px);
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  min-height: clamp(210px, 36vh, 310px);
   border-top: 1px solid rgba(255,255,255,0.06);
 }
-.sec-cards .ecard { border-right: 1px solid rgba(255,255,255,0.06); }
-.sec-cards .ecard:last-child { border-right: none; }
 
 /* ════════════════════════════════════
-   SINGLE-PAGE VIDEO SECTIONS
+   SINGLE-PAGE VIDEO SECTIONS (portrait)
 ════════════════════════════════════ */
 .splash-sec {
   position: relative;
@@ -451,8 +442,8 @@ html, body {
 .splash-sec::after {
   content: '';
   position: absolute; bottom: 0; left: 0; right: 0;
-  height: 65%;
-  background: linear-gradient(to top, rgba(9,9,9,0.88) 0%, rgba(9,9,9,0.3) 55%, transparent 100%);
+  height: 60%;
+  background: linear-gradient(to top, rgba(9,9,9,0.9) 0%, rgba(9,9,9,0.3) 50%, transparent 100%);
   z-index: 1; pointer-events: none;
 }
 .sec-bg-vid {
@@ -462,28 +453,28 @@ html, body {
 }
 .sec-float {
   position: relative; z-index: 2;
-  padding: 0 clamp(1.5rem, 4vw, 3rem) clamp(2.5rem, 5.5vh, 4.5rem);
-  max-width: min(640px, 72vw);
-  display: flex; flex-direction: column; gap: 0.5rem;
+  padding: 0 clamp(1.2rem, 5vw, 2rem) clamp(2rem, 4.5vh, 3.5rem);
+  max-width: 92vw;
+  display: flex; flex-direction: column; gap: 0.45rem;
 }
 .sec-eye {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(8px, 0.85vw, 10px); letter-spacing: 0.4em;
+  font-size: 9px; letter-spacing: 0.4em;
   color: var(--red-hi);
 }
 .sec-title {
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 0.04em;
+  font-size: clamp(1.8rem, 10vw, 2.8rem); letter-spacing: 0.04em;
   line-height: 0.9; color: var(--white);
 }
 .sec-desc {
-  font-size: clamp(11px, 1.05vw, 13px); line-height: 1.72;
-  color: rgba(242,237,232,0.58); max-width: 480px;
+  font-size: 12px; line-height: 1.72;
+  color: rgba(242,237,232,0.58);
 }
 .sec-watch {
-  align-self: flex-start; margin-top: 0.5rem;
+  align-self: flex-start; margin-top: 0.4rem;
   font-family: 'Bebas Neue', cursive;
-  font-size: clamp(10px, 1vw, 12px); letter-spacing: 0.25em;
+  font-size: 11px; letter-spacing: 0.25em;
   color: var(--white); background: rgba(9,9,9,0.6);
   border: 1px solid rgba(255,255,255,0.22);
   padding: 0.42rem 1.1rem 0.34rem;
@@ -495,7 +486,7 @@ html, body {
 
 .splash-vis {
   background: rgba(9,9,9,0.98);
-  padding: clamp(1.8rem, 4.5vh, 3rem) clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 4vh, 2.5rem) clamp(1.2rem, 5vw, 2rem);
   border-top: 1px solid rgba(255,255,255,0.07);
 }
 
@@ -505,16 +496,6 @@ html, body {
 </style>
 </head>
 <body>
-
-<!-- PORTRAIT ROTATE OVERLAY -->
-<div id="rotate-msg">
-  <svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5">
-    <rect x="14" y="6" width="24" height="40" rx="3" stroke="rgba(242,237,232,0.5)"/>
-    <path d="M6 20 C2 26 2 32 6 38" stroke="rgba(196,48,32,0.7)" stroke-linecap="round"/>
-    <path d="M3 38 L6 38 L6 41" stroke="rgba(196,48,32,0.7)" stroke-linecap="round"/>
-  </svg>
-  <p>ROTATE TO LANDSCAPE</p>
-</div>
 
 <!-- BACK BUTTON -->
 <button id="back-btn" onclick="goBack()">← BACK</button>
@@ -558,7 +539,7 @@ html, body {
     <span class="exp-hdr-k">서대문형무소역사관</span>
   </div>
   <div class="exp-cards">
-    <div class="ecard" id="ecard-intro" style="background-image:url(‘pics/intro.jpg’)">
+    <div class="ecard" id="ecard-intro" style="background-image:url('pics/intro.jpg')">
       <div class="ecard-grad"></div>
       <div class="ecard-body">
         <div class="ecard-num">01</div>
@@ -567,7 +548,7 @@ html, body {
         <div class="ecard-cta">VIEW →</div>
       </div>
     </div>
-    <div class="ecard" id="ecard-performance" style="background-image:url(‘pics/perf.jpg’)">
+    <div class="ecard" id="ecard-performance" style="background-image:url('pics/perf.jpg')">
       <div class="ecard-grad"></div>
       <div class="ecard-body">
         <div class="ecard-num">02</div>
@@ -576,7 +557,7 @@ html, body {
         <div class="ecard-cta">VIEW →</div>
       </div>
     </div>
-    <div class="ecard" id="ecard-history" style="background-image:url(‘pics/history.jpg’)">
+    <div class="ecard" id="ecard-history" style="background-image:url('pics/history.jpg')">
       <div class="ecard-grad"></div>
       <div class="ecard-body">
         <div class="ecard-num">03</div>
@@ -606,7 +587,7 @@ html, body {
         <div class="cp-eye">Gate of Memories · 역사의 장소</div>
         <div class="cp-title-row">
           <div class="cp-h1">Seodaemun<br>Prison</div>
-          <p class="cp-body">Seodaemun Prison History Hall is a memorial museum and historic site in Seoul, South Korea. Built by Japan’s colonial government in 1908, it became a powerful symbol of Korea’s struggle for independence and democracy. The complex includes seven cell blocks, an execution building, interrogation rooms, and a memorial yard.</p>
+          <p class="cp-body">Seodaemun Prison History Hall is a memorial museum and historic site in Seoul, South Korea. Built by Japan's colonial government in 1908, it became a powerful symbol of Korea's struggle for independence and democracy. The complex includes seven cell blocks, an execution building, interrogation rooms, and a memorial yard.</p>
         </div>
       </div>
       <div class="cp-gap"></div>
@@ -632,7 +613,7 @@ html, body {
         <div class="cp-eye">Performance · 역할극</div>
         <div class="cp-title-row">
           <div class="cp-h1">Performance</div>
-          <p class="cp-body">Witness reenacted scenes depicting historical events — public protests, arrests, imprisonment, and judicial proceedings — illustrating the realities faced by those who resisted colonial rule and fought for Korea’s independence.</p>
+          <p class="cp-body">Witness reenacted scenes depicting historical events — public protests, arrests, imprisonment, and judicial proceedings — illustrating the realities faced by those who resisted colonial rule and fought for Korea's independence.</p>
         </div>
       </div>
       <div class="cp-gap"></div>
@@ -658,7 +639,7 @@ html, body {
         <div class="cp-eye">History · 역사</div>
         <div class="cp-title-row">
           <div class="cp-h1">History</div>
-          <p class="cp-body">Initially named Gyeongseong Prison, the facility was established by Japan’s colonial government to detain political dissidents. It later imprisoned thousands of Korean independence activists, including the teenage martyr Yu Gwan-sun, who died there after leading the 1919 March 1 Movement. After liberation in 1945, successive South Korean regimes used it for political prisoners until its closure in 1987.</p>
+          <p class="cp-body">Initially named Gyeongseong Prison, the facility was established by Japan's colonial government to detain political dissidents. It later imprisoned thousands of Korean independence activists, including Yu Gwan-sun, who died there after leading the 1919 March 1 Movement. After liberation in 1945, successive South Korean regimes used it for political prisoners until its closure in 1987.</p>
         </div>
       </div>
       <div class="cp-text-sections">
@@ -668,11 +649,11 @@ html, body {
         </div>
         <div class="cp-section">
           <div class="cp-section-head">Significance and Remembrance</div>
-          <p class="cp-section-body">Designated a protected cultural property, Seodaemun Prison History Hall functions as a place of education and reflection on human rights, freedom, and Korea’s modern history. Memorials within the park honor those who perished, reminding visitors of the resilience that shaped the Republic of Korea. The adjacent Seodaemun Independence Park also features the Independence Gate, Independence Hall, and monuments commemorating the March 1 Movement.</p>
+          <p class="cp-section-body">Designated a protected cultural property, Seodaemun Prison History Hall functions as a place of education and reflection on human rights, freedom, and Korea's modern history. Memorials within the park honor those who perished, reminding visitors of the resilience that shaped the Republic of Korea. The adjacent Seodaemun Independence Park also features the Independence Gate, Independence Hall, and monuments commemorating the March 1 Movement.</p>
         </div>
       </div>
       <div class="cp-gap"></div>
-      <div class="look-visitors" style="margin: 0 clamp(1.2rem, 3.5vw, 2.2rem) clamp(0.6rem, 1.5vh, 1rem)">
+      <div class="look-visitors" style="margin: 0 clamp(1.2rem, 4vw, 1.8rem) clamp(0.6rem, 1.5vh, 1rem)">
         <div class="look-vis-head">VISITORS · 방문객 정보</div>
         <div class="look-vis-row">
           <span class="look-vis-icon">◆</span>
@@ -714,13 +695,9 @@ html, body {
 // ─── mobile detection & orientation routing ─────────────
 var isMobile = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-// hide rotate overlay on desktop
-if (!isMobile) document.getElementById('rotate-msg').style.display = 'none';
-
 function checkOrientation() {
-  if (!isMobile) return;
-  if (window.matchMedia('(orientation: portrait)').matches) {
-    window.location.replace('index_portrait.html#' + cur);
+  if (!isMobile || window.matchMedia('(orientation: landscape)').matches) {
+    window.location.replace('index.html#' + cur);
   }
 }
 window.addEventListener('resize', checkOrientation);
@@ -888,17 +865,11 @@ function goTo(id) {
   if (id === cur) return;
   document.getElementById(cur).classList.remove('active');
   var toEl = document.getElementById(id);
+  toEl.scrollTop = 0;
   var sc = toEl.querySelector('.cp-scroll');
   if (sc) sc.scrollTop = 0;
   toEl.classList.add('active');
   hist.push(cur); cur = id; setBack(cur);
-}
-
-function jumpTo(id) {
-  if (!id || !document.getElementById(id)) return;
-  document.getElementById(cur).classList.remove('active');
-  document.getElementById(id).classList.add('active');
-  hist = []; cur = id; setBack(cur);
 }
 
 function goBack() {
@@ -912,6 +883,13 @@ function goBack() {
   if (sc) sc.scrollTop = 0;
   toEl.classList.add('active');
   cur = prev; setBack(cur);
+}
+
+function jumpTo(id) {
+  if (!id || !document.getElementById(id)) return;
+  document.getElementById(cur).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  hist = []; cur = id; setBack(cur);
 }
 
 // restore section from hash (set by orientation redirect), then check orientation
